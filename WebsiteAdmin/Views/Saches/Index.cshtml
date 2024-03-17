@@ -1,0 +1,153 @@
+﻿@model IEnumerable<WebsiteAdmin.Models.Sach>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<button type="button" style="margin-left: 13px;" id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+        data-target="#myModal">Thêm
+    Sách</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-title" class="modal-title">Thông Tin</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalForm" method="post">
+                    <input type="hidden" id="Id" name="id" />
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sách</label>
+                        <input type="text" id="tenSach" name="tenSach" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tên Tác Giả</label>
+                        <input type="text" id="tacGia" name="tacGia" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá Tiền</label>
+                        <input type="number" id="giaTien" name="giaTien" class="form-control" required min="0 " />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nhà Xuất Bản</label>
+                        <input type="text" id="nxb" name="nxb" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<table id="sachTable" class="table" style="padding-left:40px">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tên Sách</th>
+            <th>Tác Giả</th>
+            <th>Giá Tiền</th>
+            <th>NXB</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated dynamically by DataTables -->
+    </tbody>
+</table>
+
+@section Scripts {
+   
+    <script>
+        $(document).ready(function () {
+        var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
+            
+            // Hiển thị modal cho chức năng tạo mới
+            $('#btnThem').click(function (e) {
+                e.preventDefault();
+                isEdit = false;
+                $('#modal-title').text('Tạo Sách Mới');
+                $('#modalForm')[0].reset(); // Đặt lại form
+                $('#Id').removeAttr('name'); // Xóa thuộc tính 'name' của trường ẩn Id
+                $('#myModal').modal('show');
+                });
+
+            // Hiển thị modal cho chức năng chỉnh sửa
+           $('#sachTable').on('click', '.btn-edit', function (e) {
+                e.preventDefault();
+                isEdit = true;
+                var data = $('#sachTable').DataTable().row($(this).closest('tr')).data(); // Lấy dữ liệu của hàng được chọn
+                $('#modal-title').text('Chỉnh Sửa Sách');
+                $('#Id').attr('name', 'id'); // Thêm thuộc tính 'name' vào trường ẩn Id
+                $('#Id').val(data.id);
+                $('#tenSach').val(data.tenSach);
+                $('#tacGia').val(data.tacGia);
+                $('#giaTien').val(data.giaTien);
+                $('#nxb').val(data.nxb);
+                $('#myModal').modal('show');
+            });
+
+            // Xử lý gửi dữ liệu
+           $('#modalForm').submit(function (e) {
+                e.preventDefault(); // Ngăn chặn việc gửi form một cách thông thường
+                var form = $(this);
+                var url = isEdit ? '/Saches/Edit' : '/Saches/Create';
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: form.serialize(),
+                   success: function (response) {
+                if (response && response.success) {
+                    $('#myModal').modal('hide');
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success",
+                        timer: 3000 // Thời gian hiển thị của thông báo (milliseconds)
+                    }).then(() => {
+                        location.reload(); // Tải lại trang để cập nhật bảng
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to add data.",
+                        icon: "error"
+                    });
+                }
+            },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("Đã xảy ra lỗi khi lưu dữ liệu.");
+                    }
+                });
+            });
+
+            $('#sachTable').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("SachData", "Saches")",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": "id" },
+                    { "data": "tenSach" },
+                    { "data": "tacGia" },
+                    { "data": "giaTien" },
+                    { "data": "nxb" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
+                                '<a href="/Saches/Details/' + data.id + '">Details</a> | ' +
+                                '<a href="/Saches/Delete/' + data.id + '"><i class="fa fa-trash"></a>';
+                        }
+                    }
+                ]
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,40 @@
+﻿@model WebsiteAdmin.Models.Sach
+
+@{
+    ViewData["Title"] = "Edit";
+}
+ 
+<hr />
+<div class="row">
+    <div class="col-md-4">
+                       <form  asp-action="Edit">
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sách</label>
+                        <input type="text" name="tenSach" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tên Tác Giả</label>
+                        <input type="text" name="tacGia" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Giá Tiền</label>
+                        <input type="text" name="giaTien" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nhà Xuất Bản</label>
+                        <input type="text" name="nxb" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

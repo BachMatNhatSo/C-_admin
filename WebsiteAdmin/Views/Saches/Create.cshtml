@@ -1,0 +1,52 @@
+﻿@model WebsiteAdmin.Models.Sach
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Create";
+}
+
+<style>
+    /* Place your CSS styles here */
+  
+
+    /* Your existing CSS styles */
+    /* Add or modify styles as needed */
+</style>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="mb-3">
+                    <label asp-for="tenSach" class="form-label">Tên Sách</label>
+                    <input asp-for="tenSach" class="form-control" />
+                    <span asp-validation-for="tenSach" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="tacGia" class="form-label"> Tên Tác Giả</label>
+                    <input asp-for="tacGia" class="form-control" />
+                    <span asp-validation-for="tacGia" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="giaTien" class="form-label">Giá Tiền</label>
+                    <input asp-for="giaTien" class="form-control" />
+                    <span asp-validation-for="giaTien" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="nxb" class="form-label">Nhà Xuất Bản</label>
+                    <input asp-for="nxb" class="form-control" />
+                    <span asp-validation-for="nxb" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

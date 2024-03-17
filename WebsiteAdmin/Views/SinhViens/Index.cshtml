@@ -1,0 +1,153 @@
+﻿@model IEnumerable<WebsiteAdmin.Models.SinhVien>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<button type="button" style="margin-left: 13px;" id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+        data-target="#myModal">Thêm
+    Sinh Viên</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-title" class="modal-title">Thông Tin</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalForm" method="post">
+                    <input type="hidden" id="Id" name="id" />
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sinh Viên</label>
+                        <input type="text" id="tensinhvien" name="tensinhvien" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">MSSV</label>
+                        <input type="text" id="mssv" name="mssv" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Điện Thoại</label>
+                        <input type="number" id="dienthoai" name="dienthoai" class="form-control" required min="0 " />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Địa Chỉ</label>
+                        <input type="text" id="diachi" name="diachi" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<table id="sachTable" class="table" style="padding-left:40px">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tên Sinh Viên</th>
+            <th>MSSV</th>
+            <th>Điện Thoại</th>
+            <th>Địa Chỉ</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated dynamically by DataTables -->
+    </tbody>
+</table>
+
+@section Scripts {
+   
+    <script>
+        $(document).ready(function () {
+        var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
+            
+            // Hiển thị modal cho chức năng tạo mới
+            $('#btnThem').click(function (e) {
+                e.preventDefault();
+                isEdit = false;
+                $('#modal-title').text('Thêm Sinh Viên Mới');
+                $('#modalForm')[0].reset(); // Đặt lại form
+                $('#Id').removeAttr('name'); // Xóa thuộc tính 'name' của trường ẩn Id
+                $('#myModal').modal('show');
+                });
+
+            // Hiển thị modal cho chức năng chỉnh sửa
+           $('#sachTable').on('click', '.btn-edit', function (e) {
+                e.preventDefault();
+                isEdit = true;
+                var data = $('#sachTable').DataTable().row($(this).closest('tr')).data(); // Lấy dữ liệu của hàng được chọn
+                $('#modal-title').text('Chỉnh Sửa Sinh Viên');
+                $('#Id').attr('name', 'id'); // Thêm thuộc tính 'name' vào trường ẩn Id
+                $('#Id').val(data.id);
+                $('#tensinhvien').val(data.tensinhvien);
+                $('#mssv').val(data.mssv);
+                $('#dienthoai').val(data.dienthoai);
+                $('#diachi').val(data.diachi);
+                $('#myModal').modal('show');
+            });
+
+            // Xử lý gửi dữ liệu
+           $('#modalForm').submit(function (e) {
+                e.preventDefault(); // Ngăn chặn việc gửi form một cách thông thường
+                var form = $(this);
+                var url = isEdit ? '/SinhViens/Edit' : '/SinhViens/Create';
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: form.serialize(),
+                   success: function (response) {
+                if (response && response.success) {
+                    $('#myModal').modal('hide');
+                    Swal.fire({
+                        title: "Good job!",
+                        text: "You clicked the button!",
+                        icon: "success",
+                        timer: 3000 // Thời gian hiển thị của thông báo (milliseconds)
+                    }).then(() => {
+                        location.reload(); // Tải lại trang để cập nhật bảng
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "Failed to add data.",
+                        icon: "error"
+                    });
+                }
+            },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("Đã xảy ra lỗi khi lưu dữ liệu.");
+                    }
+                });
+            });
+
+            $('#sachTable').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("SinhVienData", "sinhviens")",
+                    "dataSrc": ""
+                },
+                "columns": [
+                    { "data": "id" },
+                    { "data": "tensinhvien" },
+                    { "data": "mssv" },
+                    { "data": "dienthoai" },
+                    { "data": "diachi" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
+                                '<a href="/sinhviens/Details/' + data.id + '">Details</a> | ' +
+                                '<a href="/sinhviens/Delete/' + data.id + '"><i class="fa fa-trash"></a>';
+                        }
+                    }
+                ]
+            });
+
+        });
+    </script>
+}
