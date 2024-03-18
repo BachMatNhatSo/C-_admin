@@ -38,7 +38,7 @@ namespace WebsiteAdmin.Controllers
         }
 
         // GET: Saches/Details/5
-        public async Task<IActionResult> Details(int? id)
+       /* public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Sach == null)
             {
@@ -53,7 +53,7 @@ namespace WebsiteAdmin.Controllers
             }
 
             return View(sach);
-        }
+        }*/
 
         // GET: Saches/Create
         public IActionResult Create()
@@ -65,11 +65,12 @@ namespace WebsiteAdmin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+       
         public async Task<IActionResult> Create(Sach sach)
         {
             if (ModelState.IsValid)
             {
+                sach.Id = Guid.NewGuid();
                 _context.Add(sach);
                 await _context.SaveChangesAsync();
                 return Json(new { success = true });
@@ -98,7 +99,7 @@ namespace WebsiteAdmin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Sach sach)
+        public async Task<IActionResult> Edit(Guid id, Sach sach)
         {
             if (id != sach.Id)
             {
@@ -111,7 +112,7 @@ namespace WebsiteAdmin.Controllers
                 {
                     _context.Update(sach);
                     await _context.SaveChangesAsync();
-                    return Json(new { success=true });
+                    return Json(new { success = true });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,13 +125,13 @@ namespace WebsiteAdmin.Controllers
                         throw;
                     }
                 }
-              
+
             }
             return Json(new { success = false });
         }
 
         // GET: Saches/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Sach == null)
             {
@@ -149,24 +150,32 @@ namespace WebsiteAdmin.Controllers
 
         // POST: Saches/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+        public async Task<IActionResult> Delete(Guid id)
         {
-            if (_context.Sach == null)
+            try
             {
-                return Problem("Entity set 'WebsiteAdminContext.Sach'  is null.");
-            }
-            var sach = await _context.Sach.FindAsync(id);
-            if (sach != null)
-            {
+                var sach = await _context.Sach.FindAsync(id);
+                if (sach == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+                if (id == null)
+                {
+                    return Json(new { success = false, message = "id not found." });
+                }
                 _context.Sach.Remove(sach);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
-        private bool SachExists(int id)
+        private bool SachExists(Guid id)
         {
           return (_context.Sach?.Any(e => e.Id == id)).GetValueOrDefault();
         }

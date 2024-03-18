@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "mvzKOJgSi/R3bNKbBHIWb9lNtKt4mDDO+QHPhabB88xd4FA+0SWmAVQSUSBDAjGyOLKbTH5KnRlUD98g4cU84A==",
+  "dgSpecHash": "TbyH5wpmbaQvhHW1e/qTCE2Chs2gEML8CcuMusvZ5kBGuuWprmuhsgYBh7Y0eF33if3iCtisUsOLordJ785lqw==",
   "success": true,
-  "projectFilePath": "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\WebsiteAdmin.csproj",
+  "projectFilePath": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\WebsiteAdmin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

@@ -9,97 +9,97 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebsiteAdmin
 build_property.RootNamespace = WebsiteAdmin
-build_property.ProjectDir = C:\2.WorkSpace\BSP\C#\WebsiteAdminBackup\WebsiteAdmin\WebsiteAdmin\
+build_property.ProjectDir = C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\2.WorkSpace\BSP\C#\WebsiteAdminBackup\WebsiteAdmin\WebsiteAdmin
+build_property.MSBuildProjectDirectory = C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Home/Index.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Home/Privacy.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Saches/Create.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Saches/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaGVzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Saches/Delete.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Saches/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaGVzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Saches/Details.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Saches/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaGVzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Saches/Edit.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Saches/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaGVzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Saches/Index.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Saches/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FjaGVzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/Error.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/head_foot.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/head_foot.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXGhlYWRfZm9vdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/_SachDataPartial.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/_SachDataPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TYWNoRGF0YVBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/_SinhVienDataPartial.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/_SinhVienDataPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9TaW5oVmllbkRhdGFQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/SinhViens/Create.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/SinhViens/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/SinhViens/Delete.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/SinhViens/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/SinhViens/Details.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/SinhViens/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/SinhViens/Edit.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/SinhViens/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/SinhViens/Index.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/SinhViens/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Tree/Index.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Tree/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJlZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Tree/Welcome.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Tree/Welcome.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJlZVxXZWxjb21lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/_ViewImports.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/_ViewStart.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/2.WorkSpace/BSP/C\#/WebsiteAdminBackup/WebsiteAdmin/WebsiteAdmin/Views/Shared/_Layout.cshtml]
+[C:/2.WorkSpace/BSP/C\#/Backup/.NetCore_admin/WebsiteAdmin/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-82dkmz4svy

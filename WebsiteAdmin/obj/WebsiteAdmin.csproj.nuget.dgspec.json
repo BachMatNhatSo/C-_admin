@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\WebsiteAdmin.csproj": {}
+    "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\WebsiteAdmin.csproj": {}
   },
   "projects": {
-    "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\WebsiteAdmin.csproj": {
+    "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\WebsiteAdmin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\WebsiteAdmin.csproj",
+        "projectUniqueName": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\WebsiteAdmin.csproj",
         "projectName": "WebsiteAdmin",
-        "projectPath": "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\WebsiteAdmin.csproj",
+        "projectPath": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\WebsiteAdmin.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\2.WorkSpace\\BSP\\C#\\WebsiteAdminBackup\\WebsiteAdmin\\WebsiteAdmin\\obj\\",
+        "outputPath": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",

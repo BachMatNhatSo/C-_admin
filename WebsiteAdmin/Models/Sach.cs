@@ -6,7 +6,7 @@ namespace WebsiteAdmin.Models
     public class Sach
     {
 
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         
         public string? tenSach { get; set; }
         
