@@ -123,42 +123,50 @@ namespace WebsiteAdmin.Controllers
         }
 
         // GET: SinhViens/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.SinhVien == null)
-            {
-                return NotFound();
-            }
+  
 
-            var sinhVien = await _context.SinhVien
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sinhVien == null)
-            {
-                return NotFound();
-            }
+        /*  // POST: SinhViens/Delete/5
+          [HttpPost, ActionName("Delete")]
+          [ValidateAntiForgeryToken]
+          public async Task<IActionResult> DeleteConfirmed(int id)
+          {
+              if (_context.SinhVien == null)
+              {
+                  return Problem("Entity set 'WebsiteAdminContext.SinhVien'  is null.");
+              }
+              var sinhVien = await _context.SinhVien.FindAsync(id);
+              if (sinhVien != null)
+              {
+                  _context.SinhVien.Remove(sinhVien);
+              }
 
-            return View(sinhVien);
-        }
+              await _context.SaveChangesAsync();
+              return RedirectToAction(nameof(Index));
+          }
+  */
 
-        // POST: SinhViens/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_context.SinhVien == null)
+            try
             {
-                return Problem("Entity set 'WebsiteAdminContext.SinhVien'  is null.");
-            }
-            var sinhVien = await _context.SinhVien.FindAsync(id);
-            if (sinhVien != null)
-            {
-                _context.SinhVien.Remove(sinhVien);
-            }
+                var sinhvien = await _context.SinhVien.FindAsync(id);
+                if (sinhvien == null)
+                {
+                    return Json(new { success = false, message = "Sinh Vien not found." });
+                }
+              
+                _context.SinhVien.Remove(sinhvien);
+                await _context.SaveChangesAsync();
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
-
         private bool SinhVienExists(int id)
         {
             return (_context.SinhVien?.Any(e => e.Id == id)).GetValueOrDefault();

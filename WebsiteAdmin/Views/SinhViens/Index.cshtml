@@ -126,7 +126,7 @@
                 });
             });
 
-            $('#sachTable').DataTable({
+           var dataTable= $('#sachTable').DataTable({
                 "ajax": {
                     "url": "@Url.Action("SinhVienData", "sinhviens")",
                     "dataSrc": ""
@@ -142,12 +142,63 @@
                         "render": function (data, type, row) {
                             return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
                                 '<a href="/sinhviens/Details/' + data.id + '">Details</a> | ' +
-                                '<a href="/sinhviens/Delete/' + data.id + '"><i class="fa fa-trash"></a>';
+                                '<button class="btnDelete" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';
                         }
                     }
                 ]
             });
-
+              $('#sachTable').on('click', '.btnDelete', function() {
+    var id = $(this).data('id'); // Get the id from data attribute of the clicked button
+    
+    // Show SweetAlert confirmation dialog
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to delete this record. This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If user confirms deletion, proceed with AJAX request
+            $.ajax({
+                url: '/SinhViens/Delete/' + id,
+                type: 'POST',
+                data: { id: id },
+                success: function (response) {
+                    if (response.success) {
+                        // Show success message
+                        Swal.fire(
+                            'Deleted!',
+                            'The record has been deleted.',
+                            'success'
+                        ).then(function () {
+                            // Refresh DataTable after successful deletion
+                            dataTable.ajax.reload();
+                        });
+                    } else {
+                        // Show error message
+                        Swal.fire(
+                            'Error!',
+                            'An error occurred while deleting the record.',
+                            'error'
+                        );
+                    }
+                },
+                error: function (xhr) {
+                    // Show error message
+                    Swal.fire(
+                        'Error!',
+                        'An error occurred while deleting the record.',
+                        'error'
+                    );
+                }
+            });
+        }
+    });
+});
         });
     </script>
 }

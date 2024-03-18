@@ -78,7 +78,7 @@ namespace WebsiteAdmin.Controllers
         }
 
         // GET: Saches/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+       /* public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Sach == null)
             {
@@ -91,7 +91,7 @@ namespace WebsiteAdmin.Controllers
                 return NotFound();
             }
             return View(sach);
-        }
+        }*/
 
         // POST: Saches/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -149,22 +149,32 @@ namespace WebsiteAdmin.Controllers
 
         // POST: Saches/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+       
+        public async Task<IActionResult> Delete(int id)
         {
-            if (_context.Sach == null)
+            try
             {
-                return Problem("Entity set 'WebsiteAdminContext.Sach'  is null.");
-            }
-            var sach = await _context.Sach.FindAsync(id);
-            if (sach != null)
-            {
+                var sach = await _context.Sach.FindAsync(id);
+                if (sach == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+                if (id == null)
+                {
+                    return Json(new { success = false, message = "id not found." });
+                }
                 _context.Sach.Remove(sach);
+                await _context.SaveChangesAsync();
+               
+                return Json(new { success = true });
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
+
+     
 
         private bool SachExists(int id)
         {
