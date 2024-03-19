@@ -31,7 +31,7 @@ namespace WebsiteAdmin.Controllers
             return PartialView("_SinhVienDataPartial", sinhviens);
         }
         // GET: SinhViens/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.SinhVien == null)
             {
@@ -71,7 +71,7 @@ namespace WebsiteAdmin.Controllers
         }
 
         // GET: SinhViens/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.SinhVien == null)
             {
@@ -91,7 +91,7 @@ namespace WebsiteAdmin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, SinhVien sinhVien)
+        public async Task<IActionResult> Edit(Guid id, SinhVien sinhVien)
         {
             if (id != sinhVien.Id)
             {
@@ -123,7 +123,7 @@ namespace WebsiteAdmin.Controllers
         }
 
         // GET: SinhViens/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.SinhVien == null)
             {
@@ -142,24 +142,32 @@ namespace WebsiteAdmin.Controllers
 
         // POST: SinhViens/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.SinhVien == null)
-            {
-                return Problem("Entity set 'WebsiteAdminContext.SinhVien'  is null.");
-            }
-            var sinhVien = await _context.SinhVien.FindAsync(id);
-            if (sinhVien != null)
-            {
-                _context.SinhVien.Remove(sinhVien);
-            }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                var sinhvien = await _context.SinhVien.FindAsync(id);
+                if (sinhvien == null)
+                {
+                    return Json(new { success = false, message = "Book not found." });
+                }
+                if (id == null)
+                {
+                    return Json(new { success = false, message = "id not found." });
+                }
+                _context.SinhVien.Remove(sinhvien);
+                await _context.SaveChangesAsync();
+
+                return Json(new { success = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
 
-        private bool SinhVienExists(int id)
+        private bool SinhVienExists(Guid id)
         {
             return (_context.SinhVien?.Any(e => e.Id == id)).GetValueOrDefault();
         }

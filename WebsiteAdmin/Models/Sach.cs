@@ -5,7 +5,6 @@ namespace WebsiteAdmin.Models
 {
     public class Sach
     {
-
         public Guid Id { get; set; }
         
         public string? tenSach { get; set; }
@@ -14,5 +13,6 @@ namespace WebsiteAdmin.Models
         
         public double? giaTien { get; set; }
         public string? nxb { get; set; }
+       
     }
 }

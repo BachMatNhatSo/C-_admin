@@ -47,11 +47,9 @@ namespace WebsiteAdmin.Migrations
 
             modelBuilder.Entity("WebsiteAdmin.Models.SinhVien", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("diachi")
                         .HasColumnType("nvarchar(max)");
@@ -68,6 +66,29 @@ namespace WebsiteAdmin.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SinhVien");
+                });
+
+            modelBuilder.Entity("WebsiteAdmin.Models.SinhVienSach", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SachId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SinhVienId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ngaymuon")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ngaytra")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SinhVienSach");
                 });
 #pragma warning restore 612, 618
         }

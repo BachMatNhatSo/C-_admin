@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebsiteAdmin.Models.SinhVienSach>
+
+@{
+    Layout = null;
+}
+
+@{
+    var serializerSettings = new Newtonsoft.Json.JsonSerializerSettings
+    {
+        ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+    };
+    var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model, serializerSettings);
+}
+
+@Html.Raw(json)

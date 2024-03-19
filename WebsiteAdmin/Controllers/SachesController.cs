@@ -19,13 +19,6 @@ namespace WebsiteAdmin.Controllers
             _context = context;
         }
 
-        // GET: Saches
-        // GET: Movies
-        /*   public async Task<IActionResult> Index()
-           {
-               return View(await _context.Sach.ToListAsync());
-           }*/
-
         public async Task<IActionResult> Index()
         {
             var sachs = await _context.Sach.ToListAsync();
@@ -36,36 +29,13 @@ namespace WebsiteAdmin.Controllers
             var sachs = await _context.Sach.ToListAsync();
             return PartialView("_SachDataPartial", sachs);
         }
-
-        // GET: Saches/Details/5
-       /* public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.Sach == null)
-            {
-                return NotFound();
-            }
-
-            var sach = await _context.Sach
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (sach == null)
-            {
-                return NotFound();
-            }
-
-            return View(sach);
-        }*/
-
         // GET: Saches/Create
         public IActionResult Create()
         {
             return View();
         }
-
-        // POST: Saches/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-       
+      
         public async Task<IActionResult> Create(Sach sach)
         {
             if (ModelState.IsValid)
@@ -94,9 +64,6 @@ namespace WebsiteAdmin.Controllers
             return View(sach);
         }
 
-        // POST: Saches/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, Sach sach)

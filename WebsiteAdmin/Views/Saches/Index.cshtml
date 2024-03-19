@@ -65,13 +65,17 @@
     <script>
         $(document).ready(function () {
         var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
-            $('#sachTable').DataTable({
+          var dataTable=  $('#sachTable').DataTable({
                 "ajax": {
                     "url": "@Url.Action("SachData", "Saches")",
                     "dataSrc": ""
                 },
                 "columns": [
-                    { "data": "id" },
+                    { "data": null,
+                        "render":function(data,type,row,meta){
+                            return meta.row +1;
+                        }
+                    },
                     { "data": "tenSach" },
                     { "data": "tacGia" },
                     { "data": "giaTien" },

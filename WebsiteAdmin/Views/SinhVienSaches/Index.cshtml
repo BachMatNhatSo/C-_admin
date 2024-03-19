@@ -1,0 +1,259 @@
+﻿@model IEnumerable<WebsiteAdmin.Models.SinhVienSach>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<button type="button" style="margin-left: 13px;" id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+        data-target="#myModal">Thêm
+    Sách</button>
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="modal-title" class="modal-title">Thông Tin</h4>
+            </div>
+            <div class="modal-body">
+                <form id="modalForm" method="post">
+                    <input type="hidden" id="Id" name="id" />
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sinh Vien</label>
+                        <select id="SinhVienSachId" name="SinhVienSachId">
+                            <option value="">Select a SinhVienSach</option>
+                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sach</label>
+                        <select id="SelectLSachId" name="SelectLSachId">
+                            <option value="">Select a SinhVienSach</option>
+                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tên Sach</label>
+                        <input type="date" id="ngaymuon" name="ngaymuon"/>
+                    </div>
+                     <div class="mb-3">
+                        <label class="form-label">Tên Sach</label>
+                        <input type="date" id="ngaytra" name="ngaytra"/>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<table id="sachTable" class="table" style="padding-left:40px">
+    <thead>
+        <tr>
+            <th>UID</th>
+            <th>Tên Sinh Viên</th>
+            <th>Tên Sách</th>
+            <th>Ngày Mượn</th>
+            <th>Ngày Trả</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated dynamically by DataTables -->
+    </tbody>
+</table>
+
+@section Scripts {
+   
+    <script>
+        $(document).ready(function () {
+        var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
+          var dataTable=  $('#sachTable').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetData", "SinhVienSaches")",
+                    "dataSrc": ""
+                },
+                 
+                "columns": [
+                    { "data": null,
+                        "render":function(data,type,row,meta){
+                            return meta.row +1;
+                        }
+                    },
+                    { "data": "tenSinhVien" },
+                    { "data": "tenSach" },
+                    { "data": "ngaymuon" },
+                    { "data": "ngaytra" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
+                               
+                               '<button class="btnDelete" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';}
+                    }
+
+                ]
+            });
+       
+            // Hiển thị modal cho chức năng tạo mới
+            $('#btnThem').click(function (e) {
+                e.preventDefault();
+                isEdit = false;
+                $('#modal-title').text('Tạo Sách Mới');
+                $('#modalForm')[0].reset(); // Đặt lại form
+                $('#Id').removeAttr('name'); // Xóa thuộc tính 'name' của trường ẩn Id
+                $('#myModal').modal('show');
+                });
+
+            // Hiển thị modal cho chức năng chỉnh sửa
+            $('#sachTable').on('click', '.btn-edit', function (e) {
+                e.preventDefault();
+                isEdit = true;
+                var data = $('#sachTable').DataTable().row($(this).closest('tr')).data(); // Lấy dữ liệu của hàng được chọn
+         
+                console.log(data);
+                console.log("Ngay muon:", data.ngaymuon);
+                console.log("Ngay tra:", data.ngaytra);
+                $('#modal-title').text('Chỉnh Sửa Sách');
+                $('#Id').attr('name', 'id'); // Thêm thuộc tính 'name' vào trường ẩn Id
+                $('#Id').val(data.id);
+                $('#SinhVienSachId').val(data.sinhVienId);
+                $('#SelectLSachId').val(data.sachId);
+                $('#ngaymuon').val(data.ngaymuon);
+                $('#ngaytra').val(data.ngaytra);
+                $('#myModal').modal('show');
+            });
+
+            // Xử lý gửi dữ liệu
+            $('#modalForm').submit(function (e) {
+                e.preventDefault(); // Prevent default form submission
+            // Serialize form data
+                var sinhVienId = $('#SinhVienSachId').val();
+                var sachId = $('#SelectLSachId').val();
+                var formData = $(this).serializeArray();
+                formData.push({ name: "SinhVienId", value: sinhVienId });
+                formData.push({ name: "SachId", value: sachId });
+       
+                var url = isEdit ? '/SinhVienSaches/Edit' : '/SinhVienSaches/Create';
+            // Send AJAX request
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            // Handle success
+                            Swal.fire({
+                                title: 'Success',
+                                text: 'Record created successfully.',
+                                icon: 'success',
+                                timer: 2000
+                            }).then(function () {
+                                location.reload(); // Reload page or update table
+                            });
+                        } else {
+                            // Handle failure
+                            Swal.fire('Error', 'Failed to create record.', 'error');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error
+                        Swal.fire('Error', 'An error occurred while processing your request.', 'error');
+                    }
+                });
+            });
+            //xử lý xóa dữ liệu 
+            $('#sachTable').on('click', '.btnDelete', function() {
+            var id = $(this).data('id'); // Get the id from data attribute of the clicked button
+            // Show SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Are you sure?',
+                text: 'You are about to delete this record. This action cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If user confirms deletion, proceed with AJAX request
+                    $.ajax({
+                        url: '/SinhVienSaches/Delete/' + id,
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (response) {
+                            if (response.success) {
+                                // Show success message
+                                Swal.fire(
+                                    'Deleted!',
+                                    'The record has been deleted.',
+                                    'success'
+                                ).then(function () {
+                                    // Refresh DataTable after successful deletion
+                                    dataTable.ajax.reload();
+                                });
+                            } else {
+                                // Show error message
+                                Swal.fire(
+                                    'Error!',
+                                    'An error occurred while deleting the record.',
+                                    'error'
+                                );
+                            }
+                        },
+                        error: function (xhr) {
+                            // Show error message
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting the record.',
+                                'error'
+                            );
+                        }
+                    });
+                }
+            });
+        });
+            //dropdown sinh vien
+            $.ajax({
+                url: '/SinhVienSaches/GetSinhVienSachData', // Update the URL to your controller action
+                type: 'GET',
+                success: function(data) {
+                    // Clear existing options
+                    $('#SinhVienSachId').empty();
+                    // Add a default option
+                    $('#SinhVienSachId').append($('<option>').text('Select a SinhVien').val(''));
+                    // Add options fetched from the server
+                    $.each(data, function(index, item) {
+                        $('#SinhVienSachId').append($('<option>').text(item.tensinhvien).val(item.id));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            //dropdown sach
+            $.ajax({
+                url: '/SinhVienSaches/GetSachData', // Update the URL to your controller action
+                type: 'GET',
+                success: function(data) {
+                    // Clear existing options
+                    $('#SelectLSachId').empty();
+                    // Add a default option
+                    $('#SelectLSachId').append($('<option>').text('Select a Sach').val(''));
+                    // Add options fetched from the server
+                    $.each(data, function(index, item) {
+                        $('#SelectLSachId').append($('<option>').text(item.tenSach).val(item.id));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+    }); 
+         
+    </script>
+}
