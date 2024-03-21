@@ -1,21 +1,38 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using WebsiteAdmin.Data;
+using Microsoft.OpenApi.Models;
+using WebsiteAdmin.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<WebsiteAdminContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("connectionString") ?? throw new InvalidOperationException("Connection string 'WebsiteAdminContext' not found.")));
 // Add services to the container.
+builder.Services.AddIdentity<User, IdentityRole>(option =>
+{
+    option.Password.RequiredUniqueChars = 0;
+    option.Password.RequireUppercase = false;
+    option.Password.RequireLowercase = false;
+    option.Password.RequiredLength = 8;
+    option.Password.RequireNonAlphanumeric = false;
+}).AddEntityFrameworkStores<WebsiteAdminContext>().AddDefaultTokenProviders();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Api", Version = "v1" });
+});
 /*builder.Services.AddRazorPages();*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebsiteAdmin.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebsiteAdmin.Data
 {
-    public class WebsiteAdminContext : DbContext
+    public class WebsiteAdminContext : IdentityDbContext<User>
     {
         public DbSet<WebsiteAdmin.Models.Sach> Sach { get; set; } = default!;
         public DbSet<WebsiteAdmin.Models.SinhVien> SinhVien { get; set; } = default!;
