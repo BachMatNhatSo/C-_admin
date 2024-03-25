@@ -770,3 +770,4 @@ C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\bin\Debug\net7.0\Micros
 C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
 C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
 C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\2.WorkSpace\BSP\C#\Backup\.NetCore_admin\WebsiteAdmin\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -4,10 +4,13 @@ using WebsiteAdmin.Data;
 using Microsoft.OpenApi.Models;
 using WebsiteAdmin.Models;
 using Microsoft.AspNetCore.Identity;
-
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebsiteAdmin.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSingleton(builder.Configuration);
 builder.Services.AddDbContext<WebsiteAdminContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("connectionString") ?? throw new InvalidOperationException("Connection string 'WebsiteAdminContext' not found.")));
 // Add services to the container.
@@ -26,6 +29,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Api", Version = "v1" });
 });
+builder.Services.AddSingleton<JwtService>();
 /*builder.Services.AddRazorPages();*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -42,6 +46,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
