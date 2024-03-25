@@ -1,43 +1,55 @@
-﻿
-@model RegisterVM
+﻿@model RegisterVM
 @{
-    Layout = null;
-    ViewData["Title"] = "Login";
+Layout = null;
+ViewData["Title"] = "Login";
 }
-<div class="row d-flex align-center justify-content-center">
-    <div class="col-md-3 card p-3">
-        <h2 class="text-center-text-info">Login</h2>
-        <form asp-action="Register" method="post" >
-            <div asp-validation-summary="ModelOnly"></div>
-            <div class="mb-1">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control"/>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-             <div class="mb-1">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control"/>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control"/>
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="mb-1">
-                <label asp-for="ConformPassword" class="control-label"></label>
-                <input asp-for="ConformPassword" class="form-control"/>
-                <span asp-validation-for="ConformPassword" class="text-danger"></span>
-            </div>
+<!DOCTYPE html>
+<html>
 
-            <div class="row">
-                <div class="col-8">
-                    <a asp-action="Login" class="text-decoration-none float-start-mt-2"> Don't Have Account?</a>
-                </div>
-                <div class="col-4">
-                    <input type="submit" value="Login" class="btn btn-primary btn-sm-float-end"/>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+<head>
+	<meta charset="utf-8">
+	<title>Form-v9 by Colorlib</title>
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="~/css/nunito-font.css">
+	<!-- Main Style Css -->
+	<link rel="stylesheet" href="~/css/style.css" />
+</head>
+
+<body class="form-v9">
+	<div class="page-content">
+		<div class="form-v9-content" style="background-image: url('@Url.Content("~/images/form-v9.jpg")')">
+			<form asp-action="Register" method="post" class="form-detail">
+				 <div asp-validation-summary="ModelOnly"></div>
+				<h2>Registration Form</h2>
+				<div class="form-row-total">
+					<div class="form-row">
+						<input asp-for="Name"  class="input-text"
+							placeholder="Your Name" required>
+					</div>
+					<div class="form-row">
+						<input asp-for="Email" class="input-text"
+							placeholder="Your Email" required>
+					</div>
+				</div>
+				<div class="form-row-total">
+					<div class="form-row">
+						<input asp-for="Password" class="input-text"
+							placeholder="Your Password" required>
+					</div>
+					<div class="form-row">
+						<input asp-for="ConformPassword"
+							class="input-text" placeholder="Comfirm Password" type="password" required>
+					</div>
+				</div>
+				<div class="form-row-last">
+					<input  type="submit"  value="Register">
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>

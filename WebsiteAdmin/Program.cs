@@ -5,7 +5,9 @@ using Microsoft.OpenApi.Models;
 using WebsiteAdmin.Models;
 using Microsoft.AspNetCore.Identity;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<WebsiteAdminContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("connectionString") ?? throw new InvalidOperationException("Connection string 'WebsiteAdminContext' not found.")));
 // Add services to the container.
@@ -30,7 +32,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
 
 
@@ -41,4 +46,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Saches}/{action=Index}/{id?}");
+
 app.Run();

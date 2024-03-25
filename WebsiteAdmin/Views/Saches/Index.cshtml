@@ -27,7 +27,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Giá Tiền</label>
-                        <input type="number" id="giaTien" name="giaTien" class="form-control" required min="0 " />
+                        <input type="number" id="giaTien" name="giaTien" class="form-control" required min="0" />
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Nhà Xuất Bản</label>
@@ -78,13 +78,18 @@
                     },
                     { "data": "tenSach" },
                     { "data": "tacGia" },
-                    { "data": "giaTien" },
+                    { "data": "giaTien",
+                "render": function(data, type, row) {
+                    // Format the "giaTien" as currency (assuming it's in numeric format)
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data);
+                }
+            },
                     { "data": "nxb" },
                     {
                         "data": null,
                         "render": function (data, type, row) {
                             return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
-                                '<a href="/Saches/Details/' + data.id + '">Details</a> | ' +
+                               
                                '<button class="btnDelete" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';}
                     }
                 ]
