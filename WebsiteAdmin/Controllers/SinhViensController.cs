@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using WebsiteAdmin.Data;
 using WebsiteAdmin.Models;
 
@@ -173,5 +176,93 @@ namespace WebsiteAdmin.Controllers
         {
             return (_context.SinhVien?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+        [HttpGet]
+        public async Task<FileResult> ExportExcel()
+        {
+            var item = await _context.SinhVien.ToListAsync();
+            var filename = "DanhSachSinhVien.xlsx";
+            return GenerateExcel(filename, item);
+        }
+
+        private FileResult GenerateExcel(string fileName, IEnumerable<SinhVien> sinhViens)
+        {
+
+            System.Data.DataTable dataTable = new System.Data.DataTable("SinhVien");
+            dataTable.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn("Id"),
+                new DataColumn("Tên Sinh Viên"),
+                new DataColumn("MSSV"),
+                new DataColumn("Điện Thoại"),
+                new DataColumn("Địa Chỉ"),
+            });
+            foreach (var item in sinhViens)
+            {
+                dataTable.Rows.Add(item.Id, item.tensinhvien, item.mssv, item.dienthoai, item.diachi);
+            }
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dataTable);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    wb.SaveAs(ms);
+                    return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+        }
+
+
+        public async Task<IActionResult> ImportExcel(IFormFile formFile)
+        {
+            var list = new List<SinhVien>();
+            using (var stream = new MemoryStream())
+            {
+
+                if (formFile == null)
+                {
+                    // Display a SweetAlert to inform the user that no file was uploaded
+                    TempData["Message"] = "error";
+                    return RedirectToAction(nameof(Index)); // Redirect to the same page
+                }
+                await formFile.CopyToAsync(stream);
+                using (var package = new ExcelPackage())
+                {
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // Set the license context
+                    package.Load(stream);
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                    var rowcount = worksheet.Dimension.Rows;
+                    for (int row = 2; row <= rowcount; row++)
+                    {
+                        var tensinhvien = worksheet.Cells[row, 2].Value?.ToString()?.Trim();
+                        var mssv = worksheet.Cells[row, 3].Value?.ToString()?.Trim();
+
+                        var dienthoai = worksheet.Cells[row, 4].Value?.ToString()?.Trim();
+                        var diachi = worksheet.Cells[row, 5].Value?.ToString()?.Trim();
+
+                        var sinhvien = new SinhVien
+                        {
+                            tensinhvien = tensinhvien,
+                            mssv = mssv,
+                            dienthoai = dienthoai,
+                            diachi = diachi
+                        };
+                        list.Add(sinhvien);
+                    }
+                }
+            }
+
+            // Add imported Sach objects to the database context
+            _context.AddRange(list);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            // Redirect to a specific action or page
+            return RedirectToAction("Index"); // Replace "Index" with the name of the action or page you want to redirect to
+        }
+
+
     }
+
+
 }

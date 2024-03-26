@@ -3,10 +3,16 @@
     ViewData["Title"] = "Index";
 }
 
+<div class="row">
+            <button type="button" style="margin-left: 13px; background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+                data-target="#myModal">Thêm Sách
+            </button>
+             <a
+                 type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
+                 asp-controller="SinhVienSaches" asp-action="ExportExcel">ExportEcel
+            </a>      
+        </div>
 
-<button type="button" style="margin-left: 13px;" id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
-        data-target="#myModal">Thêm
-    Sách</button>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -43,6 +49,12 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </form>
+                  <div class="container">
+                        <form method="post" asp-controller="SinhVienSaches" asp-action="ImportExcel" enctype="multipart/form-data">
+                       <input type="file" name="formFile" style="width: 227px; padding: 8px 12px;  border: 1px solid red;    height: 50px; border-radius: 5px; cursor: pointer; background-color: #ff6161;color:white;  " />
+                        <button type="submit" style="padding: 10px 20px;  background-color: #ff6161;color:white;  border: red;height: 50px; border-radius: 5px; cursor: pointer;">Nhập File Excel</button>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
             </div>

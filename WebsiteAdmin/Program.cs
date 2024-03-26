@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using WebsiteAdmin.Services;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton(builder.Configuration);
@@ -22,7 +23,7 @@ builder.Services.AddIdentity<User, IdentityRole>(option =>
     option.Password.RequiredLength = 8;
     option.Password.RequireNonAlphanumeric = false;
 }).AddEntityFrameworkStores<WebsiteAdminContext>().AddDefaultTokenProviders();
-
+ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

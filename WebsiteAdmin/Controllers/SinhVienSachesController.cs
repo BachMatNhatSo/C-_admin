@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebsiteAdmin.Data;
 using WebsiteAdmin.Models;
+using System.Data;
+using ClosedXML.Excel;
 
 namespace WebsiteAdmin.Controllers
 {
@@ -199,5 +202,52 @@ namespace WebsiteAdmin.Controllers
         {
             return (_context.SinhVienSach?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+        [HttpGet]
+        public async Task<FileResult> ExportExcel()
+        {
+            var item =await _context.SinhVienSach.ToListAsync();
+            var filename = "DanhSachMuonTra.xlsx";
+            return GenerateExcel(filename, item);
+        }
+
+        private FileResult GenerateExcel(string fileName,IEnumerable<SinhVienSach> sinhVienSaches)
+        {
+            var query = from svs in sinhVienSaches
+                        join sv in _context.SinhVien on svs.SinhVienId equals sv.Id
+                        join s in _context.Sach on svs.SachId equals s.Id
+                        select new
+                        {
+                            svs.Id,
+                            tenSinhVien = sv.tensinhvien, // Assuming the property name is TenSinhVien in SinhVien model
+                            tenSach = s.tenSach, // Assuming the property name is TenSach in Sach model
+                            svs.ngaymuon,
+                            svs.ngaytra
+                        };
+            System.Data.DataTable dataTable = new System.Data.DataTable("SinhVienSach");
+            dataTable.Columns.AddRange(new DataColumn[]
+            {
+                new DataColumn("Id"),
+                new DataColumn("Tên Sinh Viên"),
+                new DataColumn("Tên Sách"),
+                new DataColumn("Ngày Mượn"),
+                new DataColumn("Ngày Trả"),
+            });
+            foreach(var item in query)
+            {
+                dataTable.Rows.Add(item.Id,item.tenSinhVien, item.tenSach, item.ngaymuon,item.ngaytra);
+            }
+            using(XLWorkbook wb =new XLWorkbook())
+            {
+                wb.Worksheets.Add(dataTable);
+                using(MemoryStream ms = new MemoryStream())
+                {
+                    wb.SaveAs(ms);
+                    return File(ms.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+                }
+            }
+        }
+
+        
     }
 }

@@ -22,12 +22,19 @@ namespace WebsiteAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!,model.RememberMe,false);
-                if(result.Succeeded)
+                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
+                if (result.Succeeded)
                 {
+                    // Get the user details and set the user's name in ViewData
+                    var user = await userManager.FindByNameAsync(model.Username);
+                    if (user != null)
+                    {
+                        ViewData["UserName"] = user.UserName;
+                    }
+
                     return RedirectToAction("Index", "Saches");
                 }
-                ModelState.AddModelError("", "Invalid login attemp");
+                ModelState.AddModelError("", "Invalid login attempt");
                 return View(model);
             }
             return View(model);
