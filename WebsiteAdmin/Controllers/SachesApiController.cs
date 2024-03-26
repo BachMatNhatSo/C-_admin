@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using WebsiteAdmin.Data;
 using WebsiteAdmin.Models;
 
@@ -30,26 +32,79 @@ namespace WebsiteAdmin.Controllers
             public string Message { get; set; }
         }
         // GET: api/SachesApi
-       
+
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<Sach>>>> GetSach()
+        public async Task<ActionResult<ApiResponsePaging<IEnumerable<Sach>>>> GetSach(int page , int pageSize, string sortBy ,string orderBy)
         {
             try
             {
-                var sachList = await _context.Sach.ToListAsync();
-                if (sachList == null || sachList.Count == 0)
+                var query = _context.Sach.AsQueryable();
+                if(!string.IsNullOrEmpty(sortBy) && !string.IsNullOrEmpty(orderBy))
                 {
-                    return NotFound(new ApiResponse<IEnumerable<Sach>> { Success = false, Message = "No Sach found." });
+                    query= ApplySorting(query,sortBy,orderBy);
                 }
+                var totalItems = await query.CountAsync();
+                var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+                var sachList = await query.Skip((page - 1) * pageSize)
+                                          .Take(pageSize)
+                                          .ToListAsync();
 
-                return Ok(new ApiResponse<IEnumerable<Sach>> { Success = true, Data = sachList, Message = "Success" });
+                var meta = new PaginationMeta
+                {
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalPages = totalPages,
+                    TotalItems = totalItems
+                };
+
+                return new ApiResponsePaging<IEnumerable<Sach>>
+                {
+                    Success = true,
+                    Data = sachList,
+                    Message = "Success",
+                    Meta = meta // Include pagination metadata in the response
+                };
             }
             catch (Exception ex)
             {
-                // Log the exception or handle it as per your application's requirements.
-                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse<IEnumerable<Sach>> { Success = false, Message = "Internal server error occurred." });
+                // Handle exception
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponsePaging<IEnumerable<Sach>> { Success = false, Message = "Internal server error occurred." });
             }
         }
+        private IQueryable<Sach> ApplySorting(IQueryable<Sach> query, string SortBy,string orderBy)
+        {
+            switch (SortBy.ToLower())
+            {
+                case "tensach":
+                    {
+                        query= orderBy.ToLower()=="asc"? query.OrderBy(x => x.tenSach) : query.OrderByDescending(x => x.tenSach);
+                        break;
+                    }
+                case "tacgia":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.tacGia) : query.OrderByDescending(x => x.tacGia);
+                        break;
+                    }
+                case "giatien":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.giaTien) : query.OrderByDescending(x => x.giaTien);
+                        break;
+                    }
+                case "nxb":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.nxb) : query.OrderByDescending(x => x.nxb);
+                        break;
+                    }
+                default:
+                    {
+                        query = query.OrderBy(x=>x.giaTien);
+                        break;
+                    }
+            }
+            
+            return query;
+        } 
+
 
 
         // GET: api/SachesApi/5

@@ -30,24 +30,75 @@ namespace WebsiteAdmin.Controllers
         }
         // GET: api/SinhViensApi
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<IEnumerable<SinhVien>>>> GetSinhVien()
+        public async Task<ActionResult<ApiResponsePaging<IEnumerable<SinhVien>>>> GetSinhVien(int page, int pageSize,string sortBy,string orderBy)
         {
+           
+
             try
             {
-                if (_context.SinhVien == null)
+                var query = _context.SinhVien.AsQueryable();
+                if (!string.IsNullOrEmpty(sortBy)&&!string.IsNullOrEmpty(orderBy))
                 {
-                    return NotFound(new ApiResponse<IEnumerable<SinhVien>> { Success = false, Message = "No SinhVien found." });
+                    query = ApplySorting(query,sortBy,orderBy);
                 }
 
-                var sinhVienList = await _context.SinhVien.ToListAsync();
-
-                return new ApiResponse<IEnumerable<SinhVien>> { Success = true, Data = sinhVienList, Message = "Success" };
+                var totalItems = await query.CountAsync();
+                var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+                var listSinhVien = await query.Skip((page - 1) * pageSize)
+                                    .Take(pageSize)
+                                    .ToListAsync();
+                var meta = new PaginationMeta
+                {
+                    Page = page,
+                    PageSize = pageSize,
+                    TotalItems = totalItems,
+                    TotalPages = totalPages,
+                };
+                return new ApiResponsePaging<IEnumerable<SinhVien>>
+                {
+                    Success = true,
+                    Data= listSinhVien,
+                    Message="Success",
+                    Meta = meta
+                };
             }
             catch (Exception ex)
             {
                 // Log the exception or handle it as per your application's requirements.
-                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponse<IEnumerable<SinhVien>> { Success = false, Message = "Internal server error occurred." });
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponsePaging<IEnumerable<SinhVien>> { Success = false, Message = "Internal server error occurred." });
             }
+        }
+        private IQueryable<SinhVien> ApplySorting(IQueryable<SinhVien> query,string sortBy,string orderBy)
+        {
+            switch (sortBy.ToLower())
+            {
+                case "tensinhvien":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.tensinhvien) : query.OrderByDescending(x => x.tensinhvien);
+                        break;
+                    }
+                case "mssv":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.mssv) : query.OrderByDescending(x => x.mssv);
+                        break;
+                    }
+                case "dienthoai":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.dienthoai) : query.OrderByDescending(x => x.dienthoai);
+                        break;
+                    }
+                case "diachi":
+                    {
+                        query = orderBy.ToLower() == "asc" ? query.OrderBy(x => x.diachi) : query.OrderByDescending(x => x.diachi);
+                        break;
+                    }
+                default :
+                    {
+                        query = query.OrderBy(x => x.Id);
+                        break;
+                    }
+            }
+            return query;
         }
 
         [HttpGet("{id}")]

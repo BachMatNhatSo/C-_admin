@@ -78,12 +78,13 @@
                     },
                     { "data": "tenSach" },
                     { "data": "tacGia" },
-                    { "data": "giaTien",
-                "render": function(data, type, row) {
-                    // Format the "giaTien" as currency (assuming it's in numeric format)
-                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(data);
-                }
-            },
+                    { 
+                        "data": "giaTien",
+                        "render": function(data, type, row) {
+                            // Format giaTien as currency
+                            return parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                        }
+                    },
                     { "data": "nxb" },
                     {
                         "data": null,
