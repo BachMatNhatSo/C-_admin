@@ -7,10 +7,9 @@
   <button type="button" style="margin-left: 13px; background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
                 data-target="#myModal">Thêm Sinh Viên
             </button>
-      <a
-                 type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
-              asp-controller="SinhViens" asp-action="ExportExcel">ExportEcel
-            </a> 
+             <a type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
+                  asp-controller="SinhViens" asp-action="ExportExcel">ExportEcel
+             </a> 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -69,9 +68,13 @@
     </tbody>
 </table>
 
+<div id="map" style="width: 500px; height: 400px;"></div>
+
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyBj0uTZrHGtp297RjHNyzr3Q_mSp5JapTI" type="text/javascript"></script>
+
+ 
 @section Scripts {
-   
-    <script>
+    <script type="text/javascript" >
         $(document).ready(function () {
         var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
            var dataTable= $('#sachTable').DataTable({
@@ -211,8 +214,70 @@
                 }
             });
         });
+
+
+            function addMarkerWithInfo(latitude, longitude, address, map) {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: { lat: latitude, lng: longitude }
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: address
+                });
+
+                marker.addListener('click', function () {
+                    infowindow.open(map, marker);
+                });
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: new google.maps.LatLng(10.844201, 106.635685),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            // Listen for the 'draw.dt' event of the DataTable
+            dataTable.on('draw.dt', function () {
+                // Iterate over each row in the DataTable
+                $('#sachTable').DataTable().rows().every(function () {
+                    // Get the data for the current row
+                    var data = this.data();
+                    // Extract the address from the data
+                    var address = data.diachi;
+
+                    // Make a request to OpenStreetMap Nominatim API to convert address to latitude and longitude
+                    $.ajax({
+                        url: 'https://nominatim.openstreetmap.org/search',
+                        method: 'GET',
+                        dataType: 'json',
+                        data: {
+                            q: address,
+                            format: 'json',
+                            limit: 1
+                        },
+                        success: function (response) {
+                            if (response.length > 0) {
+                                var latitude = parseFloat(response[0].lat);
+                                var longitude = parseFloat(response[0].lon);
+                                // Add marker with information for the geocoded location
+                                addMarkerWithInfo(latitude, longitude, address, map);
+                            } else {
+                                console.log('Geocoding failed: No results found.');
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Geocoding request failed: ' + error);
+                        }
+                    });
+                });
+            });
         });
+
     </script>
+
+
+
        @if (TempData["Message"] != null)
     {
         <script>

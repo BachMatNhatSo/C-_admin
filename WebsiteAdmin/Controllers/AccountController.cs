@@ -8,10 +8,13 @@ namespace WebsiteAdmin.Controllers
     {
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        public AccountController(SignInManager<User> signInManager,UserManager<User> userManager)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public AccountController(SignInManager<User> signInManager,UserManager<User> userManager,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.signInManager = signInManager;
             this.userManager = userManager;
+            this.httpContextAccessor = httpContextAccessor;
         }
         public IActionResult Login()
         {
@@ -22,14 +25,15 @@ namespace WebsiteAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Username!, model.Password!, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     // Get the user details and set the user's name in ViewData
                     var user = await userManager.FindByNameAsync(model.Username);
+                    var session = httpContextAccessor.HttpContext.Session;
                     if (user != null)
                     {
-                        ViewData["UserName"] = user.UserName;
+                        session.SetString("UserName", user.UserName);
                     }
 
                     return RedirectToAction("Index", "Saches");

@@ -23,6 +23,7 @@ builder.Services.AddIdentity<User, IdentityRole>(option =>
     option.Password.RequiredLength = 8;
     option.Password.RequireNonAlphanumeric = false;
 }).AddEntityFrameworkStores<WebsiteAdminContext>().AddDefaultTokenProviders();
+
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
@@ -31,6 +32,13 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My Api", Version = "v1" });
 });
 builder.Services.AddSingleton<JwtService>();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout=TimeSpan.FromMinutes(5);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
 /*builder.Services.AddRazorPages();*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
@@ -48,7 +56,7 @@ else
     app.UseHsts();
 }
 
-
+app.UseSession(); 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

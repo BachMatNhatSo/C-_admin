@@ -75,6 +75,7 @@ namespace WebsiteAdmin.Controllers
             return Json(new { success = false });
         }
 
+
         // GET: SinhViens/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {

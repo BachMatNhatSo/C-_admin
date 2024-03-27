@@ -13,6 +13,8 @@ using WebsiteAdmin.Models;
 using System.IO;
 using OfficeOpenXml;
 using DocumentFormat.OpenXml.Office2010.Excel;
+using System.Security.Claims;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace WebsiteAdmin.Controllers
 {
@@ -20,14 +22,26 @@ namespace WebsiteAdmin.Controllers
     public class SachesController : Controller
     {
         private readonly WebsiteAdminContext _context;
-
-        public SachesController(WebsiteAdminContext context)
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public SachesController(WebsiteAdminContext context, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index()
         {
+            var httpContext = httpContextAccessor.HttpContext;
+
+            // Kiểm tra xem người dùng đã đăng nhập chưa
+            if (httpContext.User.Identity.IsAuthenticated)
+            {
+                // Lấy thông tin của người dùng từ ClaimsPrincipal
+                var userName = httpContext.User.FindFirst(ClaimTypes.Name)?.Value;
+
+                // Sử dụng thông tin của người dùng
+                httpContextAccessor.HttpContext.Session.SetString("UserName", userName);
+            }
             var sachs = await _context.Sach.ToListAsync();
             return View(sachs);
         }
