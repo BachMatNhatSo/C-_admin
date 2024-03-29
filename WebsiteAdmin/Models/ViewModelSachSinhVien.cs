@@ -12,6 +12,7 @@ namespace WebsiteAdmin.Models
         public SinhVienSach sinhVienSach { get; set; }
         public Guid SachId { get; set; } // Thêm trường SachId
         public Guid SinhVienId { get; set; } // Thêm trường SinhVienId
+        public int trangThai { get; set; }
 
 
     }

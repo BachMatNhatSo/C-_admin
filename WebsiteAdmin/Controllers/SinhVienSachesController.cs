@@ -50,7 +50,8 @@ namespace WebsiteAdmin.Controllers
                     ngaymuon = DateOnly.FromDateTime(ssv.ngaymuon),
                     ngaytra = DateOnly.FromDateTime(ssv.ngaytra),
                     SachId = ssv.SachId,
-                    SinhVienId = ssv.SinhVienId
+                    SinhVienId = ssv.SinhVienId,
+                    trangThai=ssv.trangThai
                 })
                 .ToList();
             return Json(data);

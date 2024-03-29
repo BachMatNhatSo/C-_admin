@@ -39,23 +39,22 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 builder.Services.AddHttpContextAccessor();
+
+
 /*builder.Services.AddRazorPages();*/
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-    });
-}
-else
+
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.UseWhen(context => context.Request.Path.StartsWithSegments("/api"), app =>
+{
+    app.UseSecretKeyMiddleware();
+});
+// app.UseSecretKeyMiddleware();
 app.UseSession(); 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

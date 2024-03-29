@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\nunito-font.css"
     },
     {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\overdue.css",
+      "PackagePath": "staticwebassets\\css\\overdue.css"
+    },
+    {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

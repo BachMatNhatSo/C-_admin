@@ -27,13 +27,13 @@
                     <div class="mb-3">
                         <label class="form-label">Tên Sinh Vien</label>
                         <select id="SinhVienSachId" name="SinhVienSachId">
-                            <option value="">Select a SinhVienSach</option>
+                            <option value="">Chọn Sinh Viên</option>
                          </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Tên Sach</label>
                         <select id="SelectLSachId" name="SelectLSachId">
-                            <option value="">Select a SinhVienSach</option>
+                            <option value="">Chọn Sách</option>
                          </select>
                     </div>
                     <div class="mb-3">
@@ -43,6 +43,13 @@
                      <div class="mb-3">
                         <label class="form-label">Tên Sach</label>
                         <input type="date" id="ngaytra" name="ngaytra"/>
+                    </div>
+                        <div class="mb-3">
+                        <label class="form-label">Tình Trạng</label>
+                         <select class="form-control" id="trangThai" name="trangThai">
+                                    <option value="0">Đang Mượn</option>
+                                    <option value="1">Đã Trả</option>
+                                </select>
                     </div>
                      <div class="mb-3" style="display: flex;justify-content: flex-end;" >
                         <button type="submit" class="btn btn-primary" style=" background-color: #ff6161;color:white; width: 115px;  border: red; ">Lưu</button>
@@ -65,6 +72,7 @@
             <th>Tên Sách</th>
             <th>Ngày Mượn</th>
             <th>Ngày Trả</th>
+            <th>Trạng Thái</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -94,6 +102,13 @@
                     { "data": "tenSach" },
                     { "data": "ngaymuon" },
                     { "data": "ngaytra" },
+                    { "data": "trangThai", render: function(data, type, row, meta) {
+                            if (data == 0) {
+                                return 'Đang Mượn';
+                            } else {
+                                return 'Đã Trả';
+                            }
+                        } },
                     {
                         "data": null,
                         "render": function (data, type, row) {
@@ -103,6 +118,31 @@
                     }
 
                 ]
+            });
+            dataTable.on('draw', function() {
+                const currentDate = new Date(); // Get the current date using Moment.js
+
+                dataTable.rows().every(function(rowIdx, tableLoop, rowLoop) {
+                   
+                    const trangthai = this.data().trangThai;
+                    
+                    const dueDate = moment(this.data().ngaytra, "YYYY-MM-DD"); // Parse due date
+                    const isLend = trangthai == 0;
+                    
+                    // Compare day, month, and year separately
+                    const isDayBefore = dueDate.date() < currentDate.getDate();
+                    const isMonthBefore = dueDate.month() < currentDate.getMonth();
+                    const isYearBefore = dueDate.year() < currentDate.getFullYear();
+                    const isSameYear = dueDate.year() == currentDate.getFullYear();
+
+                    if (isLend && (isYearBefore || (isMonthBefore && isSameYear) || (isDayBefore &&
+                            isSameYear))) {
+                        $(this.node()).addClass(
+                            "overdue"); // Apply CSS class to highlight overdue rows
+                    } else {
+                        $(this.node()).removeClass("overdue"); // Remove CSS class if not overdue
+                    }
+                });
             });
        
             // Hiển thị modal cho chức năng tạo mới
@@ -140,9 +180,11 @@
             // Serialize form data
                 var sinhVienId = $('#SinhVienSachId').val();
                 var sachId = $('#SelectLSachId').val();
+                var trangThai = $('#trangThai').val();
                 var formData = $(this).serializeArray();
                 formData.push({ name: "SinhVienId", value: sinhVienId });
                 formData.push({ name: "SachId", value: sachId });
+                formData.push({ name: "trangThai", value: trangThai });
        
                 var url = isEdit ? '/SinhVienSaches/Edit' : '/SinhVienSaches/Create';
             // Send AJAX request

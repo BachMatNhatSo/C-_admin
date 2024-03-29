@@ -14,7 +14,7 @@ using WebsiteAdmin.Models;
 namespace WebsiteAdmin.Controllers
 {
 
-    [Authorize]
+    
     [Route("api/[controller]")]
     [ApiController]
     public class SachesApiController : ControllerBase

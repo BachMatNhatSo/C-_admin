@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "co6oN6/2vm3xflvACYjLYod4++gRYThNkBl/2/SH1/g=",
+  "Hash": "T/QnTTcLHpScRuIYAtfzCIDKGyEJVtY2yN7mg4q6rBs=",
   "Source": "WebsiteAdmin",
   "BasePath": "_content/WebsiteAdmin",
   "Mode": "Default",
@@ -83,6 +83,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\nunito-font.css"
+    },
+    {
+      "Identity": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\overdue.css",
+      "SourceId": "WebsiteAdmin",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\",
+      "BasePath": "_content/WebsiteAdmin",
+      "RelativePath": "css/overdue.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\overdue.css"
     },
     {
       "Identity": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\site.css",

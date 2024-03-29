@@ -39,6 +39,7 @@ namespace WebsiteAdmin.Controllers
                     return RedirectToAction("Index", "Saches");
                 }
                 ModelState.AddModelError("", "Invalid login attempt");
+                ViewData["ErrorMessage"] = "Tài khoản hoặc mật khẩu không hợp lệ!!!";
                 return View(model);
             }
             return View(model);

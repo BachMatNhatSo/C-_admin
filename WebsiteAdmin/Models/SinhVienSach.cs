@@ -12,8 +12,10 @@ namespace WebsiteAdmin.Models
         public DateTime ngaymuon { get; set; }
         [Required(ErrorMessage = "ngaytra Viên is required")]
         public DateTime ngaytra { get; set; }
+        public int trangThai { get; set; }
         public SinhVien? SinhVien { get; set; }
         public Sach? Sach { get; set; }
+       
 
     }
 }

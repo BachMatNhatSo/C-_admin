@@ -227,6 +227,9 @@ namespace WebsiteAdmin.Migrations
                     b.Property<DateTime>("ngaytra")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("trangThai")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SachId");
