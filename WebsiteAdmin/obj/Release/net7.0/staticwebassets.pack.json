@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\WebsiteAdmin.bundle.scp.css"
     },
     {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\active.css",
+      "PackagePath": "staticwebassets\\css\\active.css"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\activesidebar.css",
+      "PackagePath": "staticwebassets\\css\\activesidebar.css"
+    },
+    {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\css\\main.css",
       "PackagePath": "staticwebassets\\css\\main.css"
     },
@@ -389,8 +397,72 @@
       "PackagePath": "staticwebassets\\fonts\\poppins\\Poppins-ThinItalic.ttf"
     },
     {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\AdminLTELogo.png",
+      "PackagePath": "staticwebassets\\images\\AdminLTELogo.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\avatar.png",
+      "PackagePath": "staticwebassets\\images\\avatar.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\avatar2.png",
+      "PackagePath": "staticwebassets\\images\\avatar2.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\avatar3.png",
+      "PackagePath": "staticwebassets\\images\\avatar3.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\avatar4.png",
+      "PackagePath": "staticwebassets\\images\\avatar4.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\avatar5.png",
+      "PackagePath": "staticwebassets\\images\\avatar5.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\boxed-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\boxed-bg.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\boxed-bg.png",
+      "PackagePath": "staticwebassets\\images\\boxed-bg.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\american-express.png",
+      "PackagePath": "staticwebassets\\images\\credit\\american-express.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\cirrus.png",
+      "PackagePath": "staticwebassets\\images\\credit\\cirrus.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\mastercard.png",
+      "PackagePath": "staticwebassets\\images\\credit\\mastercard.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\paypal.png",
+      "PackagePath": "staticwebassets\\images\\credit\\paypal.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\paypal2.png",
+      "PackagePath": "staticwebassets\\images\\credit\\paypal2.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\credit\\visa.png",
+      "PackagePath": "staticwebassets\\images\\credit\\visa.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\default-150x150.png",
+      "PackagePath": "staticwebassets\\images\\default-150x150.png"
+    },
+    {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\form-v9.jpg",
       "PackagePath": "staticwebassets\\images\\form-v9.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\icons.png",
+      "PackagePath": "staticwebassets\\images\\icons.png"
     },
     {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\icons\\favicon.ico",
@@ -401,8 +473,80 @@
       "PackagePath": "staticwebassets\\images\\img-01.png"
     },
     {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\photo1.png",
+      "PackagePath": "staticwebassets\\images\\photo1.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\photo2.png",
+      "PackagePath": "staticwebassets\\images\\photo2.png"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\photo3.jpg",
+      "PackagePath": "staticwebassets\\images\\photo3.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\photo4.jpg",
+      "PackagePath": "staticwebassets\\images\\photo4.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\prod-1.jpg",
+      "PackagePath": "staticwebassets\\images\\prod-1.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\prod-2.jpg",
+      "PackagePath": "staticwebassets\\images\\prod-2.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\prod-3.jpg",
+      "PackagePath": "staticwebassets\\images\\prod-3.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\prod-4.jpg",
+      "PackagePath": "staticwebassets\\images\\prod-4.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\prod-5.jpg",
+      "PackagePath": "staticwebassets\\images\\prod-5.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user1-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user1-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user2-160x160.jpg",
+      "PackagePath": "staticwebassets\\images\\user2-160x160.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user3-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user3-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user4-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user4-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user5-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user5-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user6-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user6-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user7-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user7-128x128.jpg"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\images\\user8-128x128.jpg",
+      "PackagePath": "staticwebassets\\images\\user8-128x128.jpg"
+    },
+    {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\js\\main.js",
       "PackagePath": "staticwebassets\\js\\main.js"
+    },
+    {
+      "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\js\\script.js",
+      "PackagePath": "staticwebassets\\js\\script.js"
     },
     {
       "Id": "C:\\2.WorkSpace\\BSP\\C#\\Backup\\.NetCore_admin\\WebsiteAdmin\\wwwroot\\js\\site.js",

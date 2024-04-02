@@ -2,13 +2,17 @@
 @{
     ViewData["Title"] = "Index";
 }
-        <div class="row">
-            <button type="button" style="margin-left: 13px; background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
-                data-target="#myModal">Thêm Sách
+@{
+    var pageTitle = "Sách";
+    var sectionTitle = "Quản lý";
+}
+        <div class="row" style="margin-bottom: 5px;">
+            <button type="button" style=" background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+                data-target="#myModal">Mượn Trả
             </button>
              <a
                  type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
-              asp-controller="Saches" asp-action="ExportExcel">ExportEcel
+              asp-controller="Saches" asp-action="ExportExcel">Xuất Excel
             </a>      
         </div>
     
@@ -55,28 +59,33 @@
         </div>
     </div>
 </div>
-<table id="sachTable" class="table" style="padding-left:40px">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Tên Sách</th>
-            <th>Tác Giả</th>
-            <th>Giá Tiền</th>
-            <th>NXB</th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Data will be populated dynamically by DataTables -->
-    </tbody>
-</table>
+
+        <!-- DataTable -->
+        <table id="sachTable" class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Tên Sách</th>
+                    <th>Tác Giả</th>
+                    <th>Giá Tiền</th>
+                    <th>NXB</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be populated dynamically by DataTables -->
+            </tbody>
+        </table>
+        <!-- End DataTable -->
+     
+    
 
 @section Scripts {
    
     <script>
         $(document).ready(function () {
         var isEdit = false; // Biến để kiểm tra xem có phải là chức năng chỉnh sửa hay không
-          var dataTable=  $('#sachTable').DataTable({
+          var dataTable=  $('#sachTable').DataTable({ "responsive": true,
                 "ajax": {
                     "url": "@Url.Action("SachData", "Saches")",
                     "dataSrc": ""
@@ -93,20 +102,35 @@
                         "data": "giaTien",
                         "render": function(data, type, row) {
                             // Format giaTien as currency
-                            return parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            return parseFloat(data).toFixed(1).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                         }
                     },
                     { "data": "nxb" },
                     {
                         "data": null,
                         "render": function (data, type, row) {
-                            return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
-                               
-                               '<button class="btnDelete" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';}
+                          return '<button class="btn btn-edit btn-sm" data-id="' + data.id + '"><i class="fas fa-pencil-alt"></i></button> | ' +
+                                '<button class="btn btnDelete btn-sm" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';
+                                  }
                     }
-                ]
+                ],
+                  
+                "language": {
+                "search": "Tìm kiếm:",
+                "lengthMenu":"Hiển thị _MENU_ dòng"
+                    }   
+                   
             });
-       
+           
+
+          
+
+
+            
+             $('#sachTable').on('draw.dt', function() {
+               var info = dataTable.page.info();
+                $('#sachTable_info').html('Hiển thị từ ' + (info.start + 1) + ' đến ' + info.end + ' của ' + info.recordsTotal + ' mục');
+            }); 
             // Hiển thị modal cho chức năng tạo mới
             $('#btnThem').click(function (e) {
                 e.preventDefault();

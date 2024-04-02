@@ -4,12 +4,15 @@
 }
 
 
-  <button type="button" style="margin-left: 13px; background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
+  <div class="row" style="margin-bottom:5px;">
+      <button type="button" style=" background-color: #ff6161;color:white; " id="btnThem" class="btn btn-warning btn-lg" data-toggle="modal"
                 data-target="#myModal">Thêm Sinh Viên
             </button>
-             <a type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
-                  asp-controller="SinhViens" asp-action="ExportExcel">ExportEcel
-             </a> 
+             <a
+                 type="button" style="margin-left: 13px;background-color:#ff6161; color:white;" class="btn btn-warning btn-lg" 
+              asp-controller="SinhViens" asp-action="ExportExcel">Xuất Excel
+            </a>   
+  </div>
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
@@ -52,7 +55,9 @@
         </div>
     </div>
 </div>
-<table id="sachTable" class="table" style="padding-left:40px">
+
+     
+         <table id="sachTable" class="table">
     <thead>
         <tr>
             <th>Id</th>
@@ -67,10 +72,12 @@
         <!-- Data will be populated dynamically by DataTables -->
     </tbody>
 </table>
+   
+ 
 
 <div id="map" style="width: 100%; height: 400px;"></div>
 
-<script src="https://maps.google.com/maps/api/js?key=AIzaSyBj0uTZrHGtp297RjHNyzr3Q_mSp5JapTI" type="text/javascript"></script>
+<script src="https://maps.google.com/maps/api/js?key=AIzaSyAfvfTMzqsEFQetrgPhrWG4KhNBx0J8dFY" type="text/javascript"></script>
 
  
 @section Scripts {
@@ -96,13 +103,20 @@
                     {
                         "data": null,
                         "render": function (data, type, row) {
-                            return '<button class="btn-edit" data-id="' + data.id + '"><i class="fas fa-edit"></i></button> | ' +
-                                
-                               '<button class="btnDelete" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';}
+                            return '<button class="btn btn-edit btn-sm" data-id="' + data.id + '"><i class="fas fa-pencil-alt"></i></button> | ' +
+                                '<button class="btn btnDelete btn-sm" data-id="' + row.id + '"> <i class="fa fa-trash"></i></button>';}
                     }
 
-                ]
+                ],"language": {
+                "search": "Tìm kiếm:",
+                "lengthMenu":"Hiển thị _MENU_ dòng"
+                    }   
             });
+
+             $('#sachTable').on('draw.dt', function() {
+               var info = dataTable.page.info();
+                $('#sachTable_info').html('Hiển thị từ ' + (info.start + 1) + ' đến ' + info.end + ' của ' + info.recordsTotal + ' mục');
+            }); 
             // Hiển thị modal cho chức năng tạo mới
             $('#btnThem').click(function (e) {
                 e.preventDefault();
